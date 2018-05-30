@@ -17,7 +17,7 @@ build:
     - inv = invoke.main:program.run
 
 requirements:
-  build:
+  host:
     - pip
     - python    
     - setuptools
