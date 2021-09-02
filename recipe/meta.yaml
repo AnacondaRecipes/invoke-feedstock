@@ -19,11 +19,11 @@ build:
 requirements:
   host:
     - pip
-    - python 2.7|>=3.4 
+    - python
     - setuptools
     - wheel
   run:
-    - python 2.7|>=3.4
+    - python
 
 test:
   # Python imports
