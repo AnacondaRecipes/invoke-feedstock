@@ -1,53 +1,58 @@
-{% set version = "1.6.0" %}
+{% set name = "invoke" %}
+{% set version = "2.2.0" %}
 
 package:
-  name: invoke
+  name: {{ name|lower }}
   version: {{ version }}
 
 source:
-  fn: invoke-{{ version }}.tar.gz
-  url: https://pypi.io/packages/source/i/invoke/invoke-{{ version }}.tar.gz
-  sha256: 374d1e2ecf78981da94bfaf95366216aaec27c2d6a7b7d5818d92da55aa258d3
+  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
+  sha256: ee6cbb101af1a859c7fe84f2a264c059020b0cb7fe3535f9424300ab568f6bd5
 
 build:
   number: 0
-  script: python -m pip install . --no-deps --ignore-installed
+  script: {{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
   entry_points:
     - invoke = invoke.main:program.run
     - inv = invoke.main:program.run
+  skip: true  # [py<36]
 
 requirements:
   host:
     - pip
     - python
-    - setuptools
     - wheel
+    - setuptools
   run:
     - python
 
+# tests disabled:
+# E   Module not found "pytest_relaxed"
 test:
-  # Python imports
   imports:
     - invoke
     - invoke.parser
     - invoke.vendor
     - invoke.vendor.fluidity
     - invoke.vendor.lexicon
-    - invoke.vendor.yaml2    # [py2k]
-    - invoke.vendor.yaml3    # [py3k]
-
   commands:
+    - pip check
     - invoke --help
     - inv --help
+  requires:
+    - pip
 
 about:
-  home: http://docs.pyinvoke.org
+  home: https://docs.pyinvoke.org
   license: BSD-2-Clause
   license_family: BSD
   license_file: LICENSE
   summary: 'Pythonic task execution'
+  description: |
+    Invoke is a Python (2.7 and 3.4+) library for managing shell-oriented subprocesses and organizing executable Python code into CLI-invokable tasks.
+    It draws inspiration from various sources (make/rake, Fabric 1.x, etc) to arrive at a powerful & clean feature set.
   dev_url: https://github.com/pyinvoke/invoke
-  doc_url: http://docs.pyinvoke.org/en/stable/
+  doc_url: https://docs.pyinvoke.org
 
 extra:
   recipe-maintainers:
