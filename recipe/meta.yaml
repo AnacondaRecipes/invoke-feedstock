@@ -1,13 +1,15 @@
 {% set name = "invoke" %}
-{% set version = "2.2.0" %}
+{% set version = "3.0.3" %}
 
+# tests disabled:
+# E   Module not found "pytest_relaxed"
 package:
   name: {{ name|lower }}
   version: {{ version }}
 
 source:
-  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
-  sha256: ee6cbb101af1a859c7fe84f2a264c059020b0cb7fe3535f9424300ab568f6bd5
+  url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
+  sha256: 437b6a622223824380bfb4e64f612711a6b648c795f565efc8625af66fb57f0c
 
 build:
   number: 0
@@ -26,8 +28,6 @@ requirements:
   run:
     - python
 
-# tests disabled:
-# E   Module not found "pytest_relaxed"
 test:
   imports:
     - invoke
@@ -47,7 +47,7 @@ about:
   license: BSD-2-Clause
   license_family: BSD
   license_file: LICENSE
-  summary: 'Pythonic task execution'
+  summary: Pythonic task execution
   description: |
     Invoke is a Python (2.7 and 3.4+) library for managing shell-oriented subprocesses and organizing executable Python code into CLI-invokable tasks.
     It draws inspiration from various sources (make/rake, Fabric 1.x, etc) to arrive at a powerful & clean feature set.
