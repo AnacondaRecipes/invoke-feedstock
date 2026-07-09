@@ -1,6 +1,8 @@
 {% set name = "invoke" %}
 {% set version = "3.0.3" %}
 
+# tests disabled:
+# E   Module not found "pytest_relaxed"
 package:
   name: {{ name }}
   version: {{ version }}
@@ -25,8 +27,6 @@ requirements:
   run:
     - python
 
-# tests disabled:
-# E   Module not found "pytest_relaxed"
 test:
   imports:
     - invoke
